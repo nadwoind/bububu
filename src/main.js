@@ -2,12 +2,12 @@ import './css/styles.css';
 import { supabase } from './supabaseClient';
 
 const articlesContainer = document.getElementById('articles');
-const addBtn             = document.getElementById('add-article-btn');
-const addDialog          = document.getElementById('add-dialog');
-const editDialog         = document.getElementById('edit-dialog');
-const deleteDialog       = document.getElementById('delete-dialog');
+const addBtn            = document.getElementById('add-article-btn');
+const addDialog         = document.getElementById('add-dialog');
+const editDialog        = document.getElementById('edit-dialog');
+const deleteDialog      = document.getElementById('delete-dialog');
 
-// Ustawienie widoczności przycisków w oparciu o sesję
+// Ustaw widoczność przycisków na podstawie sesji
 async function setAuthState() {
   const { data: { session } } = await supabase.auth.getSession();
   const loginBtn    = document.getElementById('login-btn');
@@ -31,7 +31,7 @@ async function setAuthState() {
   }
 }
 
-// Pobranie i wyrenderowanie artykułów
+// Pobierz artykuły i wyrenderuj
 async function fetchArticles() {
   const { data, error } = await supabase
     .from('articles')
@@ -67,7 +67,7 @@ async function fetchArticles() {
   await setAuthState();
 }
 
-// Podpięcie eventów do przycisków CRUD
+// Podpinanie akcji do przycisków Edytuj/Usuń
 function attachArticleButtons() {
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => openEditDialog(btn.dataset.id));
@@ -77,7 +77,7 @@ function attachArticleButtons() {
   });
 }
 
-// Dodawanie
+// Dodawanie artykułu
 addBtn.addEventListener('click', () => addDialog.showModal());
 addDialog.querySelector('form').addEventListener('submit', async e => {
   e.preventDefault();
@@ -86,9 +86,14 @@ addDialog.querySelector('form').addEventListener('submit', async e => {
 
   const { error } = await supabase
     .from('articles')
-    .insert([{ title: title.value, subtitle: subtitle.value, author: author.value, content: content.value }], { returning: 'representation' });
+    .insert([{
+      title: title.value,
+      subtitle: subtitle.value,
+      author: author.value,
+      content: content.value
+    }], { returning: 'representation' });
 
-  if (error && error.message) {
+  if (error) {
     alert('Błąd dodawania: ' + error.message);
     return;
   }
@@ -98,7 +103,7 @@ addDialog.querySelector('form').addEventListener('submit', async e => {
   fetchArticles();
 });
 
-// Edycja
+// Edycja artykułu
 let currentEditId = null;
 function openEditDialog(id) {
   currentEditId = id;
@@ -116,10 +121,15 @@ editDialog.querySelector('form').addEventListener('submit', async e => {
 
   const { error } = await supabase
     .from('articles')
-    .update({ title: title.value, subtitle: subtitle.value, author: author.value, content: content.value })
+    .update({
+      title: title.value,
+      subtitle: subtitle.value,
+      author: author.value,
+      content: content.value
+    })
     .eq('id', currentEditId);
 
-  if (error && error.message) {
+  if (error) {
     alert('Błąd edycji: ' + error.message);
     return;
   }
@@ -128,7 +138,7 @@ editDialog.querySelector('form').addEventListener('submit', async e => {
   fetchArticles();
 });
 
-// Usuwanie
+// Usuwanie artykułu
 let currentDeleteId = null;
 function openDeleteDialog(id) {
   currentDeleteId = id;
@@ -137,12 +147,13 @@ function openDeleteDialog(id) {
 deleteDialog.querySelector('#cancel-delete').addEventListener('click', () => deleteDialog.close());
 deleteDialog.querySelector('form').addEventListener('submit', async e => {
   e.preventDefault();
+
   const { error } = await supabase
     .from('articles')
     .delete()
     .eq('id', currentDeleteId);
 
-  if (error && error.message) {
+  if (error) {
     alert('Błąd usuwania: ' + error.message);
     return;
   }
@@ -151,12 +162,12 @@ deleteDialog.querySelector('form').addEventListener('submit', async e => {
   fetchArticles();
 });
 
-
+// Wylogowanie
 document.getElementById('logout-btn').addEventListener('click', async () => {
   await supabase.auth.signOut();
   await setAuthState();
-  
-  window.location.href = import.meta.env.BASE_URL + 'login.html';
+  fetchArticles();
+  window.location.href = 'login.html';
 });
 
 
