@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lista artykułów</title>
+
+  <!-- Vite w buildzie zastąpi /bububu/ wartością base z vite.config.js -->
+  <base href="/bububu/" />
+
+  <!-- Względna ścieżka, Vite ją przerobi na /bububu/src/css/styles.css -->
+  
+
+  <!-- Względna ścieżka do modułu -->
+  
+  <script type="module" crossorigin src="/bububu/assets/index-b78bb168.js"></script>
+  <link rel="modulepreload" crossorigin href="/bububu/assets/supabaseClient-4b466f7b.js">
+  <link rel="stylesheet" href="/bububu/assets/supabaseClient-c9fab340.css">
+</head>
+<body class="min-h-screen flex flex-col bg-gray-50">
+  <header class="bg-white shadow">
+    <nav class="max-w-screen-xl mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-2xl font-bold">Lista artykułów</h1>
+      <div id="auth-buttons" class="flex space-x-2">
+        <a id="login-btn"
+           href="login.html"
+           class="px-4 py-2 bg-blue-500 text-white rounded transition-transform duration-200 ease-in-out hover:scale-105 hidden">
+          Zaloguj
+        </a>
+        <button id="logout-btn"
+                class="px-4 py-2 bg-gray-200 rounded transition-transform duration-200 ease-in-out hover:scale-105 hidden">
+          Wyloguj
+        </button>
+      </div>
+    </nav>
+  </header>
+
+  <main class="flex-1 max-w-screen-xl mx-auto px-4 py-6">
+    <button id="add-article-btn"
+            class="mb-4 px-4 py-2 bg-green-500 text-white rounded transition-transform duration-200 ease-in-out hover:scale-105 hidden">
+      Dodaj artykuł
+    </button>
+    <section id="articles" class="space-y-4">
+      <!-- tutaj JS wstrzyknie listę artykułów -->
+    </section>
+  </main>
+
+  <!-- Dialogi -->
+  <dialog id="add-dialog" class="p-0">
+    <form method="dialog" class="p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Dodaj artykuł</h2>
+      <input name="title" type="text" placeholder="Tytuł" required class="w-full p-2 border rounded"/>
+      <input name="subtitle" type="text" placeholder="Podtytuł" class="w-full p-2 border rounded"/>
+      <input name="author" type="text" placeholder="Autor" required class="w-full p-2 border rounded"/>
+      <textarea name="content" placeholder="Treść" required class="w-full p-2 border rounded h-32"></textarea>
+      <menu class="flex justify-end space-x-2">
+        <button type="reset" class="px-4 py-2 rounded hover:bg-gray-100">Wyczyść</button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Zapisz
+        </button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="edit-dialog" class="p-0">
+    <form method="dialog" class="p-6 space-y-4">
+      <h2 class="text-xl font-semibold">Edytuj artykuł</h2>
+      <input name="title" type="text" placeholder="Tytuł" required class="w-full p-2 border rounded"/>
+      <input name="subtitle" type="text" placeholder="Podtytuł" class="w-full p-2 border rounded"/>
+      <input name="author" type="text" placeholder="Autor" required class="w-full p-2 border rounded"/>
+      <textarea name="content" placeholder="Treść" required class="w-full p-2 border rounded h-32"></textarea>
+      <menu class="flex justify-end space-x-2">
+        <button type="button" onclick="document.getElementById('edit-dialog').close()" class="px-4 py-2 rounded hover:bg-gray-100">
+          Anuluj
+        </button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Zapisz
+        </button>
+      </menu>
+    </form>
+  </dialog>
+
+  <dialog id="delete-dialog" class="p-0">
+    <form class="p-6 space-y-4">
+      <p class="text-lg">Czy na pewno chcesz usunąć ten artykuł?</p>
+      <menu class="flex justify-end space-x-2">
+        <button id="cancel-delete" type="button" class="px-4 py-2 rounded hover:bg-gray-100">
+          Anuluj
+        </button>
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Usuń
+        </button>
+      </menu>
+    </form>
+  </dialog>
+</body>
+</html>
