@@ -24,7 +24,6 @@ loginForm.addEventListener('submit', async e => {
     errorBox.textContent = msgPL;
     errorBox.classList.remove('hidden');
   } else {
-   
-    window.location.href = import.meta.env.BASE_URL + 'index.html';
+    window.location.href = 'index.html';
   }
 });

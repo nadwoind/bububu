@@ -3,12 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Artykuły</title>
-  
-  
-  <script type="module" crossorigin src="/assets/main-8f007e07.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/supabaseClient-b1a0ba33.js">
-  <link rel="stylesheet" href="/assets/supabaseClient-f58d936c.css">
+  <title>Lista artykułów</title>
+  <base href="%BASE_URL%" />
+  <link rel="stylesheet" href="src/css/styles.css" />
+  <script type="module" src="src/main.js" defer></script>
 </head>
 <body class="min-h-screen flex flex-col bg-gray-50">
   <header class="bg-white shadow">
@@ -16,7 +14,7 @@
       <h1 class="text-2xl font-bold">Lista artykułów</h1>
       <div id="auth-buttons" class="flex space-x-2">
         <a id="login-btn"
-           href="/login.html"
+           href="login.html"
            class="px-4 py-2 bg-blue-500 text-white rounded transition-transform duration-200 ease-in-out hover:scale-105 hidden">
           Zaloguj
         </a>
@@ -34,11 +32,9 @@
       Dodaj artykuł
     </button>
     <section id="articles" class="space-y-4">
-
     </section>
   </main>
 
- 
   <dialog id="add-dialog" class="p-0">
     <form method="dialog" class="p-6 space-y-4">
       <h2 class="text-xl font-semibold">Dodaj artykuł</h2>
@@ -48,7 +44,9 @@
       <textarea name="content" placeholder="Treść" required class="w-full p-2 border rounded h-32"></textarea>
       <menu class="flex justify-end space-x-2">
         <button type="reset" class="px-4 py-2 rounded hover:bg-gray-100">Wyczyść</button>
-        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">Zapisz</button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Zapisz
+        </button>
       </menu>
     </form>
   </dialog>
@@ -61,8 +59,12 @@
       <input name="author" type="text" placeholder="Autor" required class="w-full p-2 border rounded"/>
       <textarea name="content" placeholder="Treść" required class="w-full p-2 border rounded h-32"></textarea>
       <menu class="flex justify-end space-x-2">
-        <button type="button" onclick="document.getElementById('edit-dialog').close()" class="px-4 py-2 rounded hover:bg-gray-100">Anuluj</button>
-        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">Zapisz</button>
+        <button type="button" onclick="document.getElementById('edit-dialog').close()" class="px-4 py-2 rounded hover:bg-gray-100">
+          Anuluj
+        </button>
+        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Zapisz
+        </button>
       </menu>
     </form>
   </dialog>
@@ -71,8 +73,12 @@
     <form class="p-6 space-y-4">
       <p class="text-lg">Czy na pewno chcesz usunąć ten artykuł?</p>
       <menu class="flex justify-end space-x-2">
-        <button id="cancel-delete" type="button" class="px-4 py-2 rounded hover:bg-gray-100">Anuluj</button>
-        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">Usuń</button>
+        <button id="cancel-delete" type="button" class="px-4 py-2 rounded hover:bg-gray-100">
+          Anuluj
+        </button>
+        <button type="submit" class="px-4 py-2 bg-red-500 text-white rounded hover:scale-105 transition-transform duration-200 ease-in-out">
+          Usuń
+        </button>
       </menu>
     </form>
   </dialog>

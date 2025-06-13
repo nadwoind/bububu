@@ -7,7 +7,6 @@ const addDialog         = document.getElementById('add-dialog');
 const editDialog        = document.getElementById('edit-dialog');
 const deleteDialog      = document.getElementById('delete-dialog');
 
-// Ustaw widoczność przycisków na podstawie sesji
 async function setAuthState() {
   const { data: { session } } = await supabase.auth.getSession();
   const loginBtn    = document.getElementById('login-btn');
@@ -31,7 +30,6 @@ async function setAuthState() {
   }
 }
 
-// Pobierz artykuły i wyrenderuj
 async function fetchArticles() {
   const { data, error } = await supabase
     .from('articles')
@@ -67,7 +65,6 @@ async function fetchArticles() {
   await setAuthState();
 }
 
-// Podpinanie akcji do przycisków Edytuj/Usuń
 function attachArticleButtons() {
   document.querySelectorAll('.edit-btn').forEach(btn => {
     btn.addEventListener('click', () => openEditDialog(btn.dataset.id));
