@@ -1,1 +1,26 @@
-13 brakuje tagow dodajac artykuly i host nie przez gita tylko vite
+
+/node_modules
+/.pnp
+.pnp.js
+
+/dist
+/docs
+
+.env
+.env.*.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+
+.DS_Store
+Thumbs.db
+
